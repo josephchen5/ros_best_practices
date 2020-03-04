@@ -58,14 +58,28 @@ add_library(${PROJECT_NAME}_core
    src/Algorithm.cpp
 )
 
+add_library(param
+   src/param.cpp
+)
+
+
 ## Declare cpp executables
 add_executable(${PROJECT_NAME}
   src/${PROJECT_NAME}_node.cpp
   src/RosPackageTemplate.cpp
 )
 
+add_executable(gener_alldata
+  src/gener_alldata_node.cpp
+)
+
+
 ## Add dependencies to exported targets, like ROS msgs or srvs
 add_dependencies(${PROJECT_NAME}_core
+  ${catkin_EXPORTED_TARGETS}
+)
+
+add_dependencies(param
   ${catkin_EXPORTED_TARGETS}
 )
 
@@ -73,15 +87,31 @@ add_dependencies(${PROJECT_NAME}
   ${catkin_EXPORTED_TARGETS}
 )
 
+add_dependencies(gener_alldata
+  ${catkin_EXPORTED_TARGETS}
+)
+
+
+
 ## Specify libraries to link executable targets against
 target_link_libraries(${PROJECT_NAME}_core
   ${catkin_LIBRARIES}
 )
 
+target_link_libraries(param
+  ${catkin_LIBRARIES}
+)
+
+
 target_link_libraries(${PROJECT_NAME}
   ${PROJECT_NAME}_core
   ${catkin_LIBRARIES}
 )
+
+target_link_libraries(gener_alldata
+  ${catkin_LIBRARIES}
+)
+
 
 #############
 ## Install ##
